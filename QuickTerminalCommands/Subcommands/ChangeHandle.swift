@@ -23,25 +23,25 @@ extension QuickTerminalCommands {
 
         func run() throws {
             guard currentHandle > 0 else {
-                throw ValidationError("Current handle must be greater than 0.")
+                fail("Current handle must be greater than 0.")
             }
 
             guard newHandle > 0 else {
-                throw ValidationError("New handle must be greater than 0.")
+                fail("New handle must be greater than 0.")
             }
 
             guard currentHandle != newHandle else {
-                throw ValidationError("New handle must be different from the current handle.")
+                fail("New handle must be different from the current handle.")
             }
 
             var commands = loadCommandsOrExit()
 
             guard let index = commands.firstIndex(where: { $0.id == currentHandle }) else {
-                throw ValidationError(QuickError.commandNotFound(id: currentHandle).description)
+                fail(QuickError.commandNotFound(id: currentHandle).description)
             }
 
             if commands.contains(where: { $0.id == newHandle }) {
-                throw ValidationError("A command with handle \(newHandle) already exists.")
+                fail("A command with handle \(newHandle) already exists.")
             }
 
             let oldCommand = commands[index]

@@ -31,17 +31,17 @@ extension QuickTerminalCommands {
             let rawCommand = commandParts.joined(separator: " ")
 
             guard !rawCommand.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                throw ValidationError("Command cannot be empty.")
+                fail("Command cannot be empty.")
             }
 
             var commands = loadCommandsOrExit()
             let newHandle: Int
             if let customHandle = customHandle {
                 guard customHandle > 0 else {
-                    throw ValidationError("Custom handle must be greater than 0.")
+                    fail("Custom handle must be greater than 0.")
                 }
                 guard commands.first(where: { $0.id == customHandle }) == nil else {
-                    throw ValidationError("A command with handle \(customHandle) already exists.")
+                    fail("A command with handle \(customHandle) already exists.")
                 }
                 newHandle = customHandle
             } else {

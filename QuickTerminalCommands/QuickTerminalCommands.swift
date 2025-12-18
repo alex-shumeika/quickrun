@@ -13,6 +13,7 @@ import ArgumentParser
 @main
 struct QuickTerminalCommands: ParsableCommand {
     static let configuration = CommandConfiguration(
+        commandName: "quick-terminal-commands",
         abstract: "A small tool to manage custom quick terminal commands.",
         discussion: """
         Use this command to store, list, and remove your own shell commands.
@@ -31,7 +32,7 @@ enum QuickError: Error, CustomStringConvertible {
     var description: String {
         switch self {
         case .commandNotFound(let id):
-            return "No quick command found with id \(id)."
+            return "No quick command found with handle \(id)."
         }
     }
 }
@@ -39,11 +40,15 @@ enum QuickError: Error, CustomStringConvertible {
 extension ParsableCommand {
     var store: QuickCommandStore { QuickCommandStore() }
 
+    func fail(_ message: String) -> Never {
+        Self.exit(withError: CleanExit.message(message))
+    }
+
     func loadCommandsOrExit() -> [QuickCommand] {
         do {
             return try store.load()
         } catch {
-            Self.exit(withError: ValidationError("Failed to load commands: \(error.localizedDescription)"))
+            fail("Failed to load commands: \(error.localizedDescription)")
         }
     }
 
@@ -51,7 +56,7 @@ extension ParsableCommand {
         do {
             try store.save(commands)
         } catch {
-            Self.exit(withError: ValidationError("Failed to save commands: \(error.localizedDescription)"))
+            fail("Failed to save commands: \(error.localizedDescription)")
         }
     }
 }

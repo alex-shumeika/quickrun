@@ -22,20 +22,22 @@ extension QuickTerminalCommands {
             var commands = loadCommandsOrExit()
 
             guard let index = commands.firstIndex(where: { $0.id == id }) else {
-                throw ValidationError(QuickError.commandNotFound(id: id).description)
+                fail(QuickError.commandNotFound(id: id).description)
             }
 
             let commandToRemove = commands[index]
 
-            print("You are about to remove command #\(commandToRemove.id):")
-            print("  \(commandToRemove.command)")
-            print("Are you sure? Type 'y' or 'yes' to confirm, anything else to cancel:")
+            let prompt = [
+                "You are about to remove command #\(commandToRemove.id):",
+                "  \(commandToRemove.command)"
+            ]
 
-            guard let input = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(),
-                  input == "y" || input == "yes" else {
-                print("Removal cancelled.")
-                return
-            }
+            guard TerminalUI.confirm(
+                messageLines: prompt,
+                primaryLabel: "Remove",
+                cancelLabel: "Cancel",
+                cancelMessage: "Removal cancelled."
+            ) else { return }
 
             commands.remove(at: index)
             saveCommandsOrExit(commands)
