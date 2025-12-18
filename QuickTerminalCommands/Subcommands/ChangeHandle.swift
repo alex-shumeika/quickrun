@@ -9,7 +9,7 @@ import Foundation
 import ArgumentParser
 
 extension QuickTerminalCommands {
-    struct ChangeID: ParsableCommand {
+    struct ChangeHandle: ParsableCommand {
         static let configuration = CommandConfiguration(
             commandName: "change-handle",
             abstract: "Change the handle of an existing quick command."
