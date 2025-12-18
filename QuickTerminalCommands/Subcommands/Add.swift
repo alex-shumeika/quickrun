@@ -15,6 +15,12 @@ extension QuickTerminalCommands {
             abstract: "Add a new quick command."
         )
 
+        @Option(
+            name: [.customShort("h"), .long],
+            help: "Assign a specific handle. Must be unique and greater than 0."
+        )
+        var customHandle: Int?
+
         @Argument(
             parsing: .captureForPassthrough,
             help: "The shell command to be saved."
@@ -29,13 +35,24 @@ extension QuickTerminalCommands {
             }
 
             var commands = loadCommandsOrExit()
-            let newID = store.nextID(from: commands)
+            let newHandle: Int
+            if let customHandle = customHandle {
+                guard customHandle > 0 else {
+                    throw ValidationError("Custom handle must be greater than 0.")
+                }
+                guard commands.first(where: { $0.id == customHandle }) == nil else {
+                    throw ValidationError("A command with handle \(customHandle) already exists.")
+                }
+                newHandle = customHandle
+            } else {
+                newHandle = store.nextID(from: commands)
+            }
 
-            let newCommand = QuickCommand(id: newID, command: rawCommand)
+            let newCommand = QuickCommand(id: newHandle, command: rawCommand)
             commands.append(newCommand)
             saveCommandsOrExit(commands)
 
-            print("Added quick command #\(newID):")
+            print("Added quick command #\(newHandle):")
             print("  \(rawCommand)")
         }
     }
