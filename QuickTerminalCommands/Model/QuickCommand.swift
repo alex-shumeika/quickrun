@@ -1,5 +1,5 @@
 //
-//  main.swift
+//  QuickCommand.swift
 //  QuickTerminalCommands
 //
 //  Created by Alex Shumeika on 18/12/2025.
@@ -7,5 +7,7 @@
 
 import Foundation
 
-print("Hello, World!")
-
+struct QuickCommand: Codable {
+    let id: Int
+    let command: String
+}
