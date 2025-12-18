@@ -18,7 +18,7 @@ struct QuickTerminalCommands: ParsableCommand {
         Use this command to store, list, and remove your own shell commands.
         You can then call it via an alias (for example: `quickrun`) from the terminal.
         """,
-        subcommands: [List.self, Add.self, Remove.self, Version.self],
+        subcommands: [List.self, Add.self, Remove.self, Run.self, Version.self],
         defaultSubcommand: List.self
     )
 }
