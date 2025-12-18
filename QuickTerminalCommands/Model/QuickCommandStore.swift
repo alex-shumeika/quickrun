@@ -8,9 +8,18 @@
 import Foundation
 
 struct QuickCommandStore {
+    // Use separate files for debug vs release so test data doesn't leak.
+    private static var defaultFilename: String {
+        #if DEBUG
+        return "quick_terminal_commands.debug.json"
+        #else
+        return "quick_terminal_commands.json"
+        #endif
+    }
+
     private let fileURL: URL
 
-    init(filename: String = "quick_terminal_commands.json") {
+    init(filename: String = QuickCommandStore.defaultFilename) {
         let fm = FileManager.default
         let home = fm.homeDirectoryForCurrentUser
         let configDir = home.appendingPathComponent(".quick_terminal_commands", isDirectory: true)
