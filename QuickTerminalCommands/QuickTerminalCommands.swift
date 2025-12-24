@@ -19,9 +19,28 @@ struct QuickTerminalCommands: ParsableCommand {
         Use this command to store, list, and remove your own shell commands.
         You can then call it via an alias (for example: `quickrun`) from the terminal.
         """,
-        subcommands: [List.self, Add.self, Remove.self, Run.self, ChangeHandle.self, Version.self],
-        defaultSubcommand: List.self
+        subcommands: [List.self, Add.self, Remove.self, Run.self, ChangeHandle.self, Version.self, Default.self],
+        defaultSubcommand: Default.self
     )
+    
+    struct Default: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "List by default, or run if a handle is provided."
+        )
+        
+        @Argument(help: "Handle to run (if omitted, lists commands).")
+        var handle: Int?
+        
+        func run() throws {
+            if let handle {
+                var cmd = Run()
+                cmd.id = handle
+                try cmd.run()
+            } else {
+                try List().run()
+            }
+        }
+    }
 }
 
 // MARK: - Shared helpers

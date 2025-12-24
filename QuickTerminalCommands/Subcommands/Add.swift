@@ -16,7 +16,7 @@ extension QuickTerminalCommands {
         )
 
         @Option(
-            name: [.customShort("h"), .long],
+            name: [.customShort("H"), .customLong("handle")],
             help: "Assign a specific handle. Must be unique and greater than 0."
         )
         var customHandle: Int?
