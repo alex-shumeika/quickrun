@@ -13,19 +13,24 @@ import ArgumentParser
 @main
 struct QuickTerminalCommands: ParsableCommand {
     static let configuration = CommandConfiguration(
-        commandName: "quick-terminal-commands",
-        abstract: "A small tool to manage custom quick terminal commands.",
-        discussion: """
-        Use this command to store, list, and remove your own shell commands.
-        You can then call it via an alias (for example: `quickrun`) from the terminal.
+        commandName: "quickrun",
+        abstract: "A small tool to store and run commands in terminal that are frequently used.",
+        usage: """
+        Use `quickrun <subcommand>` to run a subcommand. 
+        Run `quickrun <subcommand> --help` to see help for a subcommand
+        
+        To show list of stored commands you can also use `quickrun`.
+        To run a stored command you can use also use `quickrun <handle>`.
         """,
-        subcommands: [List.self, Add.self, Remove.self, Run.self, ChangeHandle.self, Version.self, Default.self],
+        version: "1.0.0",
+        subcommands: [List.self, Add.self, Remove.self, Run.self, ChangeHandle.self, Default.self],
         defaultSubcommand: Default.self
     )
     
     struct Default: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "List by default, or run if a handle is provided."
+            abstract: "List by default, or run if a handle is provided.",
+            shouldDisplay: false
         )
         
         @Argument(help: "Handle to run (if omitted, lists commands).")

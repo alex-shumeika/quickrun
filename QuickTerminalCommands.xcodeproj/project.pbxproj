@@ -23,7 +23,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E73A3A782EF44670002232B6 /* QuickTerminalCommands */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = QuickTerminalCommands; sourceTree = BUILT_PRODUCTS_DIR; };
+		E73A3A782EF44670002232B6 /* quickrun */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = quickrun; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7C37DD52EFC06F500B95F4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -49,6 +50,7 @@
 		E73A3A6F2EF44670002232B6 = {
 			isa = PBXGroup;
 			children = (
+				E7C37DD52EFC06F500B95F4E /* README.md */,
 				E73A3A7A2EF44670002232B6 /* QuickTerminalCommands */,
 				E73A3A792EF44670002232B6 /* Products */,
 			);
@@ -57,7 +59,7 @@
 		E73A3A792EF44670002232B6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E73A3A782EF44670002232B6 /* QuickTerminalCommands */,
+				E73A3A782EF44670002232B6 /* quickrun */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -85,7 +87,7 @@
 				E73A3A832EF447B0002232B6 /* ArgumentParser */,
 			);
 			productName = QuickTerminalCommands;
-			productReference = E73A3A782EF44670002232B6 /* QuickTerminalCommands */;
+			productReference = E73A3A782EF44670002232B6 /* quickrun */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -258,7 +260,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = quickrun;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -269,7 +271,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = quickrun;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;

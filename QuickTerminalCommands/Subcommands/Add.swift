@@ -16,20 +16,17 @@ extension QuickTerminalCommands {
         )
 
         @Option(
-            name: [.customShort("H"), .customLong("handle")],
+            name: [.customLong("handle")],
             help: "Assign a specific handle. Must be unique and greater than 0."
         )
         var customHandle: Int?
 
         @Argument(
-            parsing: .captureForPassthrough,
-            help: "The shell command to be saved."
+            help: "The shell command to be saved. For multi word command, wrap it in quotes."
         )
-        var commandParts: [String]
+        var rawCommand: String
 
         func run() throws {
-            let rawCommand = commandParts.joined(separator: " ")
-
             guard !rawCommand.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                 fail("Command cannot be empty.")
             }
