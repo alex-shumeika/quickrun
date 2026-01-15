@@ -4,7 +4,19 @@ A tiny CLI for saving and running your own shell commands by handle.
 
 ## Installation
 
+### XCode
 Build in Xcode or via `xcodebuild`, then put the binary on your PATH.
+
+### Homebrew
+Add a tap
+```
+brew tap alex-shumeika/homebrew-tap
+```
+
+Then install from homebrew
+```
+brew install quickrun
+```
 
 ## Usable
 
