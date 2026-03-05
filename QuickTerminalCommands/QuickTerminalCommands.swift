@@ -22,7 +22,7 @@ struct QuickTerminalCommands: ParsableCommand {
         To show list of stored commands you can also use `quickrun`.
         To run a stored command you can use also use `quickrun <handle>`.
         """,
-        version: "1.0.0",
+        version: "0.1.2",
         subcommands: [List.self, Add.self, Remove.self, Run.self, ChangeHandle.self, Default.self],
         defaultSubcommand: Default.self
     )
