@@ -17,9 +17,9 @@ extension QuickTerminalCommands {
 
         @Option(
             name: [.customLong("handle")],
-            help: "Assign a specific handle. Must be unique and greater than 0."
+            help: "Assign a specific handle. Must be unique and non-empty."
         )
-        var customHandle: Int?
+        var customHandle: String?
 
         @Argument(
             help: "The shell command to be saved. For multi word command, wrap it in quotes."
@@ -32,17 +32,18 @@ extension QuickTerminalCommands {
             }
 
             var commands = loadCommandsOrExit()
-            let newHandle: Int
+            let newHandle: String
             if let customHandle = customHandle {
-                guard customHandle > 0 else {
-                    fail("Custom handle must be greater than 0.")
+                let trimmed = customHandle.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !trimmed.isEmpty else {
+                    fail("Custom handle must be non-empty.")
                 }
-                guard commands.first(where: { $0.id == customHandle }) == nil else {
-                    fail("A command with handle \(customHandle) already exists.")
+                guard commands.first(where: { $0.id == trimmed }) == nil else {
+                    fail("A command with handle \(trimmed) already exists.")
                 }
-                newHandle = customHandle
+                newHandle = trimmed
             } else {
-                newHandle = store.nextID(from: commands)
+                newHandle = String(store.nextID(from: commands))
             }
 
             let newCommand = QuickCommand(id: newHandle, command: rawCommand)

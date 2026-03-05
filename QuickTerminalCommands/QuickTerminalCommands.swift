@@ -34,7 +34,7 @@ struct QuickTerminalCommands: ParsableCommand {
         )
         
         @Argument(help: "Handle to run (if omitted, lists commands).")
-        var handle: Int?
+        var handle: String?
         
         func run() throws {
             if let handle {
@@ -51,7 +51,7 @@ struct QuickTerminalCommands: ParsableCommand {
 // MARK: - Shared helpers
 
 enum QuickError: Error, CustomStringConvertible {
-    case commandNotFound(id: Int)
+    case commandNotFound(id: String)
 
     var description: String {
         switch self {
