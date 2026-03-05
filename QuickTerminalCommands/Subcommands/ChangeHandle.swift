@@ -22,33 +22,35 @@ extension QuickTerminalCommands {
         var swap = false
 
         @Argument(help: "Current handle of the command.")
-        var currentHandle: Int
+        var currentHandle: String
 
-        @Argument(help: "New handle to assign. Must be unique and greater than 0.")
-        var newHandle: Int
+        @Argument(help: "New handle to assign. Must be unique and non-empty.")
+        var newHandle: String
 
         func run() throws {
-            guard currentHandle > 0 else {
-                fail("Current handle must be greater than 0.")
+            let trimmedCurrent = currentHandle.trimmingCharacters(in: .whitespacesAndNewlines)
+            let trimmedNew = newHandle.trimmingCharacters(in: .whitespacesAndNewlines)
+
+            guard !trimmedCurrent.isEmpty else {
+                fail("Current handle must be non-empty.")
             }
 
-            guard newHandle > 0 else {
-                fail("New handle must be greater than 0.")
+            guard !trimmedNew.isEmpty else {
+                fail("New handle must be non-empty.")
             }
 
-            guard currentHandle != newHandle else {
+            guard trimmedCurrent != trimmedNew else {
                 fail("New handle must be different from the current handle.")
             }
 
-
             if swap {
-                swapHandles()
+                swapHandles(currentHandle: trimmedCurrent, newHandle: trimmedNew)
             } else {
-                changeSingleHandle()
+                changeSingleHandle(currentHandle: trimmedCurrent, newHandle: trimmedNew)
             }
         }
         
-        private func changeSingleHandle() {
+        private func changeSingleHandle(currentHandle: String, newHandle: String) {
             var commands = loadCommandsOrExit()
 
             guard let index = commands.firstIndex(where: { $0.id == currentHandle }) else {
@@ -67,7 +69,7 @@ extension QuickTerminalCommands {
             print("Updated command handle from #\(currentHandle) to #\(newHandle).")
         }
         
-        private func swapHandles() {
+        private func swapHandles(currentHandle: String, newHandle: String) {
             var commands = loadCommandsOrExit()
 
             guard let firstCommandIndex = commands.firstIndex(where: { $0.id == currentHandle }) else {

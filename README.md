@@ -55,10 +55,10 @@ Change the handle for an existing command.
 
 ```
 quickrun add "echo Hello world"
-quickrun add --handle 10 "ls -la"
+quickrun add --handle deploy "make deploy"
 quickrun list
-quickrun run 10
-quickrun remove 10
+quickrun run deploy
+quickrun remove deploy
 ```
 
 ## Data storage

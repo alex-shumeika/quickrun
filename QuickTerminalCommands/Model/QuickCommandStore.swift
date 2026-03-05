@@ -54,6 +54,7 @@ struct QuickCommandStore {
     }
 
     func nextID(from commands: [QuickCommand]) -> Int {
-        return (commands.map { $0.id }.max() ?? 0) + 1
+        let numericIDs = commands.compactMap { Int($0.id) }
+        return (numericIDs.max() ?? 0) + 1
     }
 }

@@ -12,17 +12,22 @@ extension QuickTerminalCommands {
     struct Run: ParsableCommand {
         static let configuration = CommandConfiguration(
             commandName: "run",
-            abstract: "Run a saved quick command by its number."
+            abstract: "Run a saved quick command by its handle."
         )
 
-        @Argument(help: "The number (id) of the command to run.")
-        var id: Int
+        @Argument(help: "The handle of the command to run.")
+        var id: String
 
         func run() throws {
+            let trimmed = id.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmed.isEmpty else {
+                fail("Handle must be non-empty.")
+            }
+
             let commands = loadCommandsOrExit()
 
-            guard let command = commands.first(where: { $0.id == id }) else {
-                fail(QuickError.commandNotFound(id: id).description)
+            guard let command = commands.first(where: { $0.id == trimmed }) else {
+                fail(QuickError.commandNotFound(id: trimmed).description)
             }
 
             let prompt = [
