@@ -66,14 +66,16 @@ quickrun remove deploy
 Commands are stored as JSON in:
 
 ```
-~/.quick_terminal_commands/quick_terminal_commands.json
+~/.config/quickrun/commands.json
 ```
 
 In Debug builds, the file name is:
 
 ```
-~/.quick_terminal_commands/quick_terminal_commands.debug.json
+~/.config/quickrun/commands.debug.json
 ```
+
+If a file is found in the legacy location (`~/.quick_terminal_commands/`), it is migrated automatically the first time the new location is used.
 
 ## Build from source
 
