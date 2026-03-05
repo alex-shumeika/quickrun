@@ -67,12 +67,6 @@ struct QuickCommandStore {
     }
 
     func save(_ commands: [QuickCommand]) throws {
-        let fm = FileManager.default
-        let parentDir = fileURL.deletingLastPathComponent()
-        if !fm.fileExists(atPath: parentDir.path) {
-            try fm.createDirectory(at: parentDir, withIntermediateDirectories: true)
-        }
-
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         let data = try encoder.encode(commands)
